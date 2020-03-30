@@ -111,14 +111,13 @@ class PostController extends Controller
         $request->validate($this->validateRules);
         $data = $request->all();
 
-        $post = new Post;
         $post->title = $data['title'];
         $post->body = $data['body'];
         $post->slug = rand(1, 100) . '-' . Str::slug($post->title);
         $post->user_id = Auth::id();
         $post->updated_at = Carbon::now();
 
-        $saved = $post->save();
+        $saved = $post->update();
         if (!$saved) {
             return redirect()->back()->with('error', 'Post Update ERROR!');;
         }
