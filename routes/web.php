@@ -23,12 +23,14 @@ Auth::routes();
 Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/posts/{slug}', 'PostController@show')->name('posts.show');
 
+// redirect tu posts list after login
+Route::get('/registred', 'Registred\PostController@index');
+
 Route::name('registred.')
     ->prefix('registred')
     ->namespace('Registred')
     ->middleware('auth')
     ->group(function () {
-        Route::get('/registred', 'HomeController@index')->name('home');
         Route::resource('posts', 'PostController');
         //rotta commenti admin
     });

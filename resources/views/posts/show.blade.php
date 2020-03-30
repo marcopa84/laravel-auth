@@ -20,7 +20,7 @@
             <td>{{$post->user->name}}</td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
-            <td><a class="btn btn-primary" href="{{route('posts.index', $post->slug)}}">Back</a></td>
+            <td><a class="btn btn-primary" href="{{route('posts.index')}}">Back</a></td>
         </tr>
       </tbody>
     </table>
