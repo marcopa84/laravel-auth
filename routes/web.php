@@ -16,3 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/posts', 'PostController@index')->name('posts.index');
+
+Route::name('registred.')
+    ->prefix('registred')
+    ->namespace('Registred')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('/registred', 'HomeController@index')->name('home');
+        Route::resource('posts', 'PostController');
+        //rotta commenti admin
+    });
