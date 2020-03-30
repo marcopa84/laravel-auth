@@ -24,4 +24,24 @@
         </tr>
       </tbody>
     </table>
+  
+    <table class="table">
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>Comment</th>
+            <th>Created at</th>
+           
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($post->comments as $comment)
+         <tr>
+             <td>{{$comment->name}}</td>
+             <td>{{$comment->body}}</td>
+             <td>{{$comment->created_at}}</td>   
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
 @endsection
