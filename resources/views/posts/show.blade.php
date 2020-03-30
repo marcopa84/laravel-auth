@@ -44,4 +44,19 @@
         @endforeach
       </tbody>
     </table>
+    <form action="{{route('comment.store')}}" method="post">
+        @csrf
+        @method('POST')
+        <div class="form-group">
+          <label for="title">Name</label>
+          <input class="form-control" type="text" name="name">
+        </div>
+
+        <div class="form-group">
+          <label for="body">Body</label>
+          <textarea class="form-control" name="body" id="body" cols="30" rows="10"></textarea>
+        </div>
+        <input type="hidden" name="post_id" value="{{$post->id}}">
+        <button class="btn btn-success" type="submit">Save</button>
+      </form>
 @endsection

@@ -22,8 +22,9 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/posts', 'PostController@index')->name('posts.index');
 Route::get('/posts/{slug}', 'PostController@show')->name('posts.show');
+Route::post('/comment', 'CommentController@store')->name('comment.store');
 
-// redirect tu posts list after login
+// redirect to posts list after login
 Route::get('/registred', 'Registred\PostController@index');
 
 Route::name('registred.')
