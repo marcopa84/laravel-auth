@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Registred;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -40,7 +41,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('registred.posts.insert');
+        $data = [
+            'tags' => Tag::all(),
+        ];
+        return view('registred.posts.insert', $data);
     }
 
     /**
@@ -59,12 +63,17 @@ class PostController extends Controller
         $newPost->body = $data['body'];
         $newPost->slug = rand(1, 100) . '-' . Str::slug($newPost->title);
         $newPost->user_id = Auth::id();
-
+        
         $saved = $newPost->save();
         if (!$saved) {
             return redirect()->back()->with('error', 'Post Store ERROR!');;
         }
+        
+        if (!empty($data['tags'])){
+            $newPost->tags()->attach($data['tags']);
+        }
 
+        
         return redirect()->route('registred.posts.show', $newPost->slug)->with('message', 'Post Stored!');
     }
 

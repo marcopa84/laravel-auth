@@ -11,6 +11,7 @@
           <th>ID</th>
           <th>Title</th>
           <th>Body</th>
+          <th>Tags</th>
           <th>User Name</th>
           <th>Created At</th>
           <th>Updated At</th>
@@ -22,6 +23,15 @@
           <td>{{$post->id}}</td>
           <td>{{$post->title}}</td>
           <td>{{$post->body}}</td>
+          <td>
+             <ul>
+            @forelse ($post->tags as $tag)
+             <li>{{$tag->description}}</li>
+            @empty
+                {{'no tags'}}
+            @endforelse
+              </ul>
+          </td>
           <td>{{$post->user->name}}</td>
           <td>{{$post->created_at}}</td>
           <td>{{$post->updated_at}}</td>

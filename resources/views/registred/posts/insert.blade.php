@@ -15,6 +15,16 @@
           <textarea class="form-control" name="body" id="body" cols="30" rows="10"></textarea>
         </div>
 
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          @foreach ($tags as $tag)
+          <div>
+            <input type="checkbox" name="tags[]" value="{{$tag->id}}">
+            <span>{{$tag->description}}</span>
+          </div>
+          @endforeach
+        </div>
+
         <button class="btn btn-success" type="submit">Save</button>
       </form>
     </div>
