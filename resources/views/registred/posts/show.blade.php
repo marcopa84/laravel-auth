@@ -24,13 +24,13 @@
           <td>{{$post->title}}</td>
           <td>{{$post->body}}</td>
           <td>
-             <ul>
+            <ul>
             @forelse ($post->tags as $tag)
              <li>{{$tag->description}}</li>
             @empty
-                {{'no tags'}}
+            <li>{{'no tags'}}</li>
             @endforelse
-              </ul>
+            </ul>
           </td>
           <td>{{$post->user->name}}</td>
           <td>{{$post->created_at}}</td>

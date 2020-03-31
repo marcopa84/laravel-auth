@@ -73,7 +73,7 @@ class PostController extends Controller
             $newPost->tags()->attach($data['tags']);
         }
 
-        
+
         return redirect()->route('registred.posts.show', $newPost->slug)->with('message', 'Post Stored!');
     }
 
@@ -98,8 +98,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
-        return view('registred.posts.edit', compact('post'));
+        $data = [
+            'post' => Post::find($id),
+            'tags' => Tag::all()
+        ];
+        return view('registred.posts.edit', $data);
     }
 
     /**
@@ -131,6 +134,10 @@ class PostController extends Controller
             return redirect()->back()->with('error', 'Post Update ERROR!');;
         }
 
+        if (!empty($data['tags'])) {
+            $post->tags()->sync($data['tags']);
+        }
+
         return redirect()->route('registred.posts.show', $post->slug)->with('message', 'Post Updated!');
         
     }
@@ -146,7 +153,7 @@ class PostController extends Controller
         if (empty($post)) {
             abort(404);
         }
-
+        $post->tags()->detach();
         $post->delete();
                                                         //no error only for color
         return redirect()->route('registred.posts.index')->with('error', 'Post Deleted!');
