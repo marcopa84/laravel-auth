@@ -2,9 +2,7 @@
 @extends('layouts.app')
 @section('content')
 
-  <div class="container">
-    <div class="row">
-      <form action="{{route('registred.posts.update', $post)}}" method="post">
+  <form action="{{route('registred.posts.update', $post)}}" method="post">
         @csrf
         @method('PATCH')
         <div class="form-group">
@@ -19,18 +17,18 @@
 
         <div class="form-group">
           <label for="tags">Tags</label>
+          <ul class="list-inline">
           @foreach ($tags as $tag)
-          <div>
+          <li class="list-inline-item">
             <input type="checkbox" name="tags[]" value="{{$tag->id}}" {{($post->tags->contains($tag->id)) ? 'checked' : ''}}>
             <span>{{$tag->description}}</span>
-          </div>
+          </li>
           @endforeach
+          </ul>
         </div>
 
 
         <button class="btn btn-success" type="submit">Save</button>
       </form>
-    </div>
-  </div>
-    
+
 @endsection

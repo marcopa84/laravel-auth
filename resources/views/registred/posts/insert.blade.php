@@ -1,8 +1,7 @@
 @extends('layouts.app')
 @section('content')
-  <div class="container">
-    <div class="row">
-      <form action="{{route('registred.posts.store')}}" method="post">
+
+  <form action="{{route('registred.posts.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <div class="form-group">
@@ -17,17 +16,29 @@
 
         <div class="form-group">
           <label for="tags">Tags</label>
+          <ul class="list-inline">
           @foreach ($tags as $tag)
-          <div>
+          <li class="list-inline-item">
             <input type="checkbox" name="tags[]" value="{{$tag->id}}">
             <span>{{$tag->description}}</span>
-          </div>
+          </li>
           @endforeach
+          </ul>
+        </div>
+
+        <div class="form-group">
+          <label for="nopublished">Da Pubblicare</label>
+          <input type="radio" name="published" value="0" id="nopublished">
+          <label for="published">Pubblicato</label>
+          <input type="radio" name="published" value="1" id="published">
+        </div>
+        
+        <div class="form-group">
+          <input type="file" name="path_image" accept="image/*">
         </div>
 
         <button class="btn btn-success" type="submit">Save</button>
       </form>
-    </div>
-  </div>
+
     
 @endsection

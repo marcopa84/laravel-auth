@@ -13,10 +13,21 @@ class TagsTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i=0; $i < 6 ; $i++) { 
-            $tag = new Tag;
-            $tag->description = $faker->word;
-            $tag->save();
+        $tags = [
+            'cronaca',
+            'economia',
+            'politica',
+            'mondo',
+            'salute',
+            'scienze'
+
+        ];
+
+        foreach ($tags as $tag) {
+            $Newtag = new Tag;
+            $Newtag->description = $tag;
+            $Newtag->save();
         }
+        
     }
 }

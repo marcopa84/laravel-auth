@@ -9,6 +9,7 @@ use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -19,8 +20,11 @@ class PostController extends Controller
 
         $this->validateRules = [
             'title' => 'required|string|max:255',
-            'body' => 'required|string'
+            'body' => 'required|string',
+            'published' => 'required|boolean',
+            'path_image' => 'image'
         ];
+        
     }
     /**
      * Display a listing of the resource.
@@ -58,13 +62,20 @@ class PostController extends Controller
         $request->validate($this->validateRules);
         $data = $request->all();
 
+        
         $newPost = new Post;
         $newPost->title = $data['title'];
         $newPost->body = $data['body'];
         $newPost->slug = rand(1, 100) . '-' . Str::slug($newPost->title);
         $newPost->user_id = Auth::id();
+        $newPost->published = $data['published'];
         
+        $path = Storage::disk('public')->put('images', $data['path_image']);
+        $newPost->path_image = $path;
+
         $saved = $newPost->save();
+
+
         if (!$saved) {
             return redirect()->back()->with('error', 'Post Store ERROR!');;
         }

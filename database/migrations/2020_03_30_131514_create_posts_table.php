@@ -19,7 +19,9 @@ class CreatePostsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
             $table->longText('body');
+            $table->string('path_image')->nullable();
             $table->string('slug')->unique();
+            $table->boolean('published');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class CommentsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         // dd(Post::inRandomOrder()->first()->id);
-        for ($i=0; $i < 150; $i++) { 
+        for ($i=0; $i < 100; $i++) { 
             $newComment = new Comment;
             $newComment->post_id = Post::inRandomOrder()->first()->id;
             $newComment->name = $faker->name();
