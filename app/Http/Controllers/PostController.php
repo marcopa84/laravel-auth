@@ -11,7 +11,7 @@ class PostController extends Controller
     //ACCESSO A TUTTI registrati e non
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::where('published', 1)->get();
 
         return view('posts.index', compact('posts'));
     }
