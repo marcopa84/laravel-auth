@@ -70,8 +70,10 @@ class PostController extends Controller
         $newPost->user_id = Auth::id();
         $newPost->published = $data['published'];
         
-        $path = Storage::disk('public')->put('images', $data['path_image']);
-        $newPost->path_image = $path;
+        if (!empty($data['path_image'])) {
+            $path = Storage::disk('public')->put('images', $data['path_image']);
+            $newPost->path_image = $path;
+        }
 
         $saved = $newPost->save();
 
@@ -139,6 +141,12 @@ class PostController extends Controller
         $post->slug = rand(1, 100) . '-' . Str::slug($post->title);
         $post->user_id = Auth::id();
         $post->updated_at = Carbon::now();
+        $post->published = $data['published'];
+
+        if (!empty($data['path_image'])) {
+            $path = Storage::disk('public')->put('images', $data['path_image']);
+            $post->path_image = $path;
+        }
 
         $saved = $post->update();
         if (!$saved) {

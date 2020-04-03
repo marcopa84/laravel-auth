@@ -7,6 +7,9 @@
         <tr>
             <th>Title</th>
             <th>Content</th>
+            @isset($post->path_image)
+              <th>Image</th>
+            @endisset
             <th>Tags</th>
             <th>User</th>
             <th>Created At</th>
@@ -18,6 +21,9 @@
         <tr>
             <td>{{$post->title}}</td>
             <td>{{$post->body}}</td>
+            @isset($post->path_image)
+              <td><img src="{{asset('storage/' . $post->path_image)}}" alt="" class=" img-thumbnail "></td>  
+            @endisset
             <td>
             <ul>
             @forelse ($post->tags as $tag)

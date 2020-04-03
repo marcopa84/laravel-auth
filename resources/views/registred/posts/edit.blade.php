@@ -2,7 +2,7 @@
 @extends('layouts.app')
 @section('content')
 
-  <form action="{{route('registred.posts.update', $post)}}" method="post">
+  <form action="{{route('registred.posts.update', $post)}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="form-group">
@@ -25,6 +25,20 @@
           </li>
           @endforeach
           </ul>
+        </div>
+
+        <div class="form-group">
+          <label for="nopublished">Da Pubblicare</label>
+          <input type="radio" name="published" value="0" id="nopublished" @if ($post->published == 0) {{'checked'}}   @endif>
+          <label for="published">Pubblicato</label>
+          <input type="radio" name="published" value="1" id="published" @if ($post->published == 1) {{'checked'}}   @endif>
+        </div>
+
+         <div class="form-group">
+            @isset($post->path_image)
+              <img src="{{asset('storage/' . $post->path_image)}}" alt="" class=" img-thumbnail ">  
+            @endisset
+          <input type="file" name="path_image" accept="image/*">
         </div>
 
 
